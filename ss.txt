@@ -1,0 +1,12 @@
+Testing commands
+who
+whoami
+du
+ls
+cd Documents
+ls
+du
+cd ..
+cd Stuff
+ls
+du
