@@ -110,6 +110,7 @@ class ConsoleEmulator:
         # Поле вывода
         self.output_field = tk.Text(root, height=25, width=100, bg='black', fg='green', font=('Courier New', 12))
         self.output_field.pack(pady=1)
+        self.output_field.config(state=tk.DISABLED)
 
         # Поле ввода
         self.input_field = tk.Entry(root, width=100, bg='black', fg='green', font=('Courier New', 12))
@@ -124,6 +125,7 @@ class ConsoleEmulator:
         self.process_input()
 
     def process_input(self):
+        self.output_field.config(state=tk.NORMAL)
         user_input = self.input_field.get()
         self.output_field.insert(tk.END, f"{self.fs.username}:{self.fs.pwd()}> {user_input}\n")  # Отображение введенной команды
         self.input_field.delete(0, tk.END)  # Очистка поля ввода
@@ -154,6 +156,8 @@ class ConsoleEmulator:
         if command[0] == "exit":
             self.root.destroy()
 
+        self.output_field.config(state=tk.DISABLED)
+
     def execute_commands_from_file(self, file_path):
         try:
             with open(file_path, 'r') as f:
@@ -170,6 +174,7 @@ class ConsoleEmulator:
             self.output_field.insert(tk.END, f"Ошибка: {str(e)}\n")
 
     def process_command(self, command):
+        self.output_field.config(state=tk.NORMAL)
         parts = command.split()
         if parts[0] == "cd":
             op = self.fs.cd(parts[1])
@@ -194,6 +199,8 @@ class ConsoleEmulator:
 
         if parts[0] == "exit":
             self.root.destroy()
+
+        self.output_field.config(state=tk.DISABLED)
 
 
 if __name__ == "__main__":
